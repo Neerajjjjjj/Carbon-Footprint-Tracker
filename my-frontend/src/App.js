@@ -1,144 +1,116 @@
-import React, { useState } from "react";
-import axios from "axios";
-import API_BASE_URL from "./api"; // Import the backend URL
-import ResultsPage from "./ResultsPage"; // New ResultsPage component to display emissions
-import EcoImpact from "./EcoImpact"; // New EcoImpact component to show milestones and savings
+import React, { useState } from 'react';
+import './App.css';
 
-const App = () => {
-  const [distance, setDistance] = useState("");
-  const [fuelType, setFuelType] = useState("Petrol");
-  const [transportMode, setTransportMode] = useState("Car");
-  const [riders, setRiders] = useState("");
-  const [traffic, setTraffic] = useState("Low");
-  const [idleTime, setIdleTime] = useState("");
-  const [nighttime, setNighttime] = useState(false);
-  const [emissions, setEmissions] = useState(null);
+function App() {
+  const [distance, setDistance] = useState('');
+  const [fuelType, setFuelType] = useState('Petrol');
+  const [mode, setMode] = useState('Car');
+  const [riders, setRiders] = useState('');
+  const [traffic, setTraffic] = useState('Low');
+  const [idleTime, setIdleTime] = useState('');
+  const [nighttime, setNighttime] = useState('No');
+  const [result, setResult] = useState('');
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      // Send trip data to the backend
-      const response = await axios.post(`${API_BASE_URL}/api/trip`, {
-        distance,
-        fuelType,
-        transportMode,
-        riders,
-        traffic,
-        idleTime,
-        nighttime,
-      });
+    const emissionFactor = fuelType === 'Petrol' ? 2.3 : fuelType === 'Diesel' ? 2.7 : 0;
+    const trafficMultiplier = traffic === 'High' ? 1.5 : traffic === 'Medium' ? 1.2 : 1;
+    const nighttimeMultiplier = nighttime === 'Yes' ? 0.8 : 1;
 
-      // Set emissions from the backend response
-      setEmissions(response.data.emissions);
-    } catch (error) {
-      console.error("Error submitting the form", error);
-    }
+    const totalEmission =
+      (distance * emissionFactor * trafficMultiplier * nighttimeMultiplier) /
+      (riders || 1);
+
+    setResult(`Estimated Emissions: ${totalEmission.toFixed(2)} kg CO₂`);
   };
 
   return (
-    <div>
-      <h1>Eco-Friendly Ride Calculator</h1>
-      
-      {/* TripForm: Collect trip details */}
-      <form onSubmit={handleSubmit}>
-        <label>
+    <div className="container">
+      <h1 className="title">Eco-Friendly Ride Calculator</h1>
+      <form className="form" onSubmit={handleSubmit}>
+        <label className="label">
           Distance (km):
           <input
             type="number"
+            className="input"
             value={distance}
             onChange={(e) => setDistance(e.target.value)}
             required
           />
         </label>
-        <br />
-
-        <label>
+        <label className="label">
           Fuel Type:
           <select
+            className="select"
             value={fuelType}
             onChange={(e) => setFuelType(e.target.value)}
           >
-            <option value="Petrol">Petrol</option>
-            <option value="Diesel">Diesel</option>
-            <option value="Electric">Electric</option>
+            <option>Petrol</option>
+            <option>Diesel</option>
+            <option>Electric</option>
           </select>
         </label>
-        <br />
-
-        <label>
+        <label className="label">
           Mode of Transport:
           <select
-            value={transportMode}
-            onChange={(e) => setTransportMode(e.target.value)}
+            className="select"
+            value={mode}
+            onChange={(e) => setMode(e.target.value)}
           >
-            <option value="Car">Car</option>
-            <option value="Bike">Bike</option>
-            {/* Add more transport modes as required */}
+            <option>Car</option>
+            <option>Bike</option>
+            <option>Bus</option>
           </select>
         </label>
-        <br />
-
-        <label>
+        <label className="label">
           Riders:
           <input
             type="number"
+            className="input"
             value={riders}
             onChange={(e) => setRiders(e.target.value)}
-            required
           />
         </label>
-        <br />
-
-        <label>
+        <label className="label">
           Traffic:
           <select
+            className="select"
             value={traffic}
             onChange={(e) => setTraffic(e.target.value)}
           >
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
           </select>
         </label>
-        <br />
-
-        <label>
+        <label className="label">
           Idle Time (minutes):
           <input
             type="number"
+            className="input"
             value={idleTime}
             onChange={(e) => setIdleTime(e.target.value)}
-            required
           />
         </label>
-        <br />
-
-        <label>
+        <label className="label">
           Nighttime (Yes/No):
           <select
-            value={nighttime ? "Yes" : "No"}
-            onChange={(e) => setNighttime(e.target.value === "Yes")}
+            className="select"
+            value={nighttime}
+            onChange={(e) => setNighttime(e.target.value)}
           >
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            <option>No</option>
+            <option>Yes</option>
           </select>
         </label>
-        <br />
-
-        <button type="submit">Submit</button>
+        <button type="submit" className="button">Submit</button>
       </form>
 
-      {/* Display results and eco-impact after emissions are calculated */}
-      {emissions && (
-        <div>
-          <ResultsPage emissions={emissions} />
-          <EcoImpact emissions={emissions} />
-        </div>
-      )}
+      {result && <div className="result">{result}</div>}
     </div>
   );
-};
+}
 
 export default App;
+

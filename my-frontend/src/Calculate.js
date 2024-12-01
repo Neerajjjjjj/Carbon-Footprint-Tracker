@@ -131,4 +131,4 @@ const Calculate = () => {
   );
 };
 
-export default Calculate;
+export default Calculate; 
