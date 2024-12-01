@@ -1,78 +1,93 @@
-/* General styles */
-body {
-  font-family: Arial, sans-serif;
+/* Reset some default styles */
+* {
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9;
+  box-sizing: border-box;
 }
 
-/* Container for the app */
-.container {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Title of the app */
-.title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 24px;
+/* Body Styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f9;
   color: #333;
+  padding: 0 20px;
 }
 
-/* Form styles */
+/* App Container Styling */
+.app-container {
+  max-width: 700px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Title Styling */
+.app-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #4caf50;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+/* Form Styling */
 .form {
   display: flex;
   flex-direction: column;
+  gap: 15px;
 }
 
-/* Label styles */
-.label {
-  margin-bottom: 15px;
+/* Label Styling */
+.form-label {
   font-size: 16px;
+  font-weight: 600;
   color: #555;
+  text-align: left;
+  margin-bottom: 5px;
 }
 
-/* Input field styles */
-.input,
-.select {
+/* Input and Select Styling */
+.form-input, .form-select {
   width: 100%;
-  padding: 10px;
-  font-size: 14px;
+  padding: 12px;
+  font-size: 16px;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-top: 5px;
+  border-radius: 8px;
+  transition: border 0.3s ease;
 }
 
-/* Button styles */
-.button {
+.form-input:focus, .form-select:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+/* Submit Button Styling */
+.submit-button {
   background-color: #4caf50;
   color: white;
-  padding: 10px 15px;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
+  transition: background-color 0.3s ease;
 }
 
-.button:hover {
+.submit-button:hover {
   background-color: #45a049;
 }
 
-/* Result section */
-.result {
-  margin-top: 20px;
-  padding: 10px;
-  background: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
-  border-radius: 4px;
-  font-size: 16px;
-  text-align: center;
+/* Result Box Styling */
+.result-box {
+  background-color: #e8f5e9;
+  color: #388e3c;
+  padding: 15px;
+  margin-top: 30px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
 }
-

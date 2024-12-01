@@ -14,7 +14,8 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const emissionFactor = fuelType === 'Petrol' ? 2.3 : fuelType === 'Diesel' ? 2.7 : 0;
+    const emissionFactor =
+      fuelType === 'Petrol' ? 2.3 : fuelType === 'Diesel' ? 2.7 : 0;
     const trafficMultiplier = traffic === 'High' ? 1.5 : traffic === 'Medium' ? 1.2 : 1;
     const nighttimeMultiplier = nighttime === 'Yes' ? 0.8 : 1;
 
@@ -26,23 +27,24 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <h1 className="title">Eco-Friendly Ride Calculator</h1>
+    <div className="app-container">
+      <h1 className="app-title">Carbon Footprint Tracker</h1>
       <form className="form" onSubmit={handleSubmit}>
-        <label className="label">
+        <label className="form-label">
           Distance (km):
           <input
             type="number"
-            className="input"
+            className="form-input"
             value={distance}
             onChange={(e) => setDistance(e.target.value)}
             required
           />
         </label>
-        <label className="label">
+
+        <label className="form-label">
           Fuel Type:
           <select
-            className="select"
+            className="form-select"
             value={fuelType}
             onChange={(e) => setFuelType(e.target.value)}
           >
@@ -51,10 +53,11 @@ function App() {
             <option>Electric</option>
           </select>
         </label>
-        <label className="label">
+
+        <label className="form-label">
           Mode of Transport:
           <select
-            className="select"
+            className="form-select"
             value={mode}
             onChange={(e) => setMode(e.target.value)}
           >
@@ -63,19 +66,21 @@ function App() {
             <option>Bus</option>
           </select>
         </label>
-        <label className="label">
+
+        <label className="form-label">
           Riders:
           <input
             type="number"
-            className="input"
+            className="form-input"
             value={riders}
             onChange={(e) => setRiders(e.target.value)}
           />
         </label>
-        <label className="label">
-          Traffic:
+
+        <label className="form-label">
+          Traffic Condition:
           <select
-            className="select"
+            className="form-select"
             value={traffic}
             onChange={(e) => setTraffic(e.target.value)}
           >
@@ -84,19 +89,21 @@ function App() {
             <option>High</option>
           </select>
         </label>
-        <label className="label">
+
+        <label className="form-label">
           Idle Time (minutes):
           <input
             type="number"
-            className="input"
+            className="form-input"
             value={idleTime}
             onChange={(e) => setIdleTime(e.target.value)}
           />
         </label>
-        <label className="label">
+
+        <label className="form-label">
           Nighttime (Yes/No):
           <select
-            className="select"
+            className="form-select"
             value={nighttime}
             onChange={(e) => setNighttime(e.target.value)}
           >
@@ -104,13 +111,13 @@ function App() {
             <option>Yes</option>
           </select>
         </label>
-        <button type="submit" className="button">Submit</button>
+
+        <button type="submit" className="submit-button">Calculate Emissions</button>
       </form>
 
-      {result && <div className="result">{result}</div>}
+      {result && <div className="result-box">{result}</div>}
     </div>
   );
 }
 
 export default App;
-
